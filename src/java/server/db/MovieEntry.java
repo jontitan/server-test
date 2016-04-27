@@ -46,5 +46,21 @@ public class MovieEntry {
 		this.rating = rating;
 	} 
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name: ");
+		sb.append(name);
+		sb.append("\n");
+		sb.append("Genre: ");
+		sb.append(genre);
+		sb.append("\n");
+		sb.append("Year: ");
+		sb.append(year);
+		sb.append("\n");
+		sb.append("Rating: ");
+		sb.append(rating);
+		sb.append("\n");
+		return sb.toString();
+	}
 }

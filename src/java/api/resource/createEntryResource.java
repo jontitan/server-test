@@ -7,6 +7,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import api.representation.createEntryRepresentation;
 import server.db.InMemoryDatabase;
 import server.db.MovieEntry;
@@ -15,6 +18,7 @@ import server.db.MovieEntry;
 @Produces(MediaType.APPLICATION_JSON)
 public class createEntryResource {
 	private InMemoryDatabase imd;
+	final static Logger logger = LoggerFactory.getLogger(createEntryResource.class);
 	
 	private final static String WRONG_NAME = "Invalid input for name";
 	private final static String WRONG_GENRE = "Invalid input for genre";
@@ -54,7 +58,8 @@ public class createEntryResource {
 		
 		MovieEntry me = new MovieEntry(name, genre, intYear, doubleRating);
 		int id = imd.createEntry(me);
+		logger.info("Movie Entry Added \n" + me.toString());
 		
-		return new createEntryRepresentation(name, genre, intYear, doubleRating, id);
+		return new createEntryRepresentation(id);
 	}
 }
