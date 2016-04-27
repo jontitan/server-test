@@ -1,0 +1,60 @@
+package api.resource;
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+
+import api.representation.createEntryRepresentation;
+import server.db.InMemoryDatabase;
+import server.db.MovieEntry;
+
+@Path("/api/movie/create")
+@Produces(MediaType.APPLICATION_JSON)
+public class createEntryResource {
+	private InMemoryDatabase imd;
+	
+	private final static String WRONG_NAME = "Invalid input for name";
+	private final static String WRONG_GENRE = "Invalid input for genre";
+	private final static String WRONG_YEAR = "Invalid input for year";
+	private final static String WRONG_RATING = "Invalid input for rating";
+
+	public createEntryResource(InMemoryDatabase imd) {
+		this.imd = imd;
+	}
+
+	@POST
+	public createEntryRepresentation createEntry(@QueryParam("name") String name,
+												 @QueryParam("genre") String genre,
+												 @QueryParam("year") String year,
+												 @QueryParam("rating") String rating){
+		if(name == null){
+			throw new WebApplicationException(WRONG_NAME, 400);
+		}
+		
+		if(genre == null){
+			throw new WebApplicationException(WRONG_GENRE, 400);
+		}
+		
+		int intYear = 0;
+		try{
+			intYear = Integer.parseInt(year);
+		} catch (NumberFormatException nfe){
+			throw new WebApplicationException(WRONG_YEAR, 400);
+		}
+		
+		double doubleRating = 0;
+		try{
+			doubleRating = Double.parseDouble(rating);
+		} catch (NumberFormatException nfe){
+			throw new WebApplicationException(WRONG_RATING, 400);
+		}
+		
+		MovieEntry me = new MovieEntry(name, genre, intYear, doubleRating);
+		int id = imd.createEntry(me);
+		
+		return new createEntryRepresentation(name, genre, intYear, doubleRating, id);
+	}
+}

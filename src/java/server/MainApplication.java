@@ -5,7 +5,11 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import api.resource.TimeOfDayResource;
+import api.resource.createEntryResource;
 import server.config.AppConfiguration;
+import server.db.InMemoryDatabase;
 import server.healthcheck.AppHealthCheck;
 
 /**
@@ -14,6 +18,7 @@ import server.healthcheck.AppHealthCheck;
 public class MainApplication extends Application<AppConfiguration>
 {
 	final static Logger logger = LoggerFactory.getLogger(MainApplication.class);
+	public static InMemoryDatabase imd;
 
 
 	public static void main(String[] args) throws Exception
@@ -31,6 +36,7 @@ public class MainApplication extends Application<AppConfiguration>
     public void initialize(Bootstrap<AppConfiguration> bootstrap)
 	{
         // framework bootstrap initialization
+    	imd = new InMemoryDatabase();
     }
 
     @Override
@@ -52,6 +58,7 @@ public class MainApplication extends Application<AppConfiguration>
 		environment.healthChecks().register("app", new AppHealthCheck());
 
         // register servlet route handlers
-		// environment.jersey().register(new YourServlet());
+		environment.jersey().register(new TimeOfDayResource());
+		environment.jersey().register(new createEntryResource(imd));
     }
 }
