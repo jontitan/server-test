@@ -6,13 +6,10 @@ import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import api.resource.TimeOfDayResource;
-import api.resource.CreateEntryResource;
-import api.resource.DeleteEntryResource;
-import api.resource.ListEntriesResource;
+import api.resource.*;
 import server.config.AppConfiguration;
 import server.db.InMemoryDatabase;
-import server.healthcheck.AppHealthCheck;
+import server.healthcheck.*;
 
 /**
  * Main application
@@ -58,6 +55,7 @@ public class MainApplication extends Application<AppConfiguration>
 		}
 
 		environment.healthChecks().register("app", new AppHealthCheck());
+		environment.healthChecks().register("timeOfDay", new TimeOfDayHealthCheck());
 
         // register servlet route handlers
 		environment.jersey().register(new TimeOfDayResource());

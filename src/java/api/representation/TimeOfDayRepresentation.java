@@ -17,6 +17,28 @@ public class TimeOfDayRepresentation {
 	
 	@JsonProperty
     public String getTime() {
-        return  localTime.getHourOfDay() + ":" + localTime.getMinuteOfHour() + ":" + localTime.getSecondOfMinute();
+		int hour = localTime.getHourOfDay();
+		int minute = localTime.getMinuteOfHour();
+		int second = localTime.getSecondOfMinute();
+		String hourStr = "";
+		String minuteStr = "";
+		String secondStr = "";
+		if(hour/10 == 0) {
+			hourStr = "0" + hour;
+		} else {
+			hourStr = String.valueOf(hour);
+		}
+		if(minute/10 == 0) {
+			minuteStr = "0" + minute;
+		} else {
+			minuteStr = String.valueOf(minute);
+		}
+		if(second/10 == 0) {
+			secondStr = "0" + second;
+		} else {
+			secondStr = String.valueOf(second);
+		}
+		
+        return  hourStr + ":" + minuteStr + ":" + secondStr;
     }
 }
