@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import api.resource.TimeOfDayResource;
 import api.resource.CreateEntryResource;
+import api.resource.DeleteEntryResource;
 import api.resource.ListEntriesResource;
 import server.config.AppConfiguration;
 import server.db.InMemoryDatabase;
@@ -61,6 +62,7 @@ public class MainApplication extends Application<AppConfiguration>
         // register servlet route handlers
 		environment.jersey().register(new TimeOfDayResource());
 		environment.jersey().register(new CreateEntryResource());
+		environment.jersey().register(new DeleteEntryResource());
 		environment.jersey().register(new ListEntriesResource());
     }
 }

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import api.representation.CreateEntryRepresentation;
+import api.representation.MovieEntryRepresentation;
 import server.MainApplication;
 import server.db.MovieEntry;
 
@@ -25,7 +25,7 @@ public class CreateEntryResource {
 	private final static String WRONG_RATING = "Invalid input for rating";
 
 	@POST
-	public CreateEntryRepresentation createEntry(@QueryParam("name") String name,
+	public MovieEntryRepresentation createEntry(@QueryParam("name") String name,
 												 @QueryParam("genre") String genre,
 												 @QueryParam("year") String year,
 												 @QueryParam("rating") String rating){
@@ -55,6 +55,6 @@ public class CreateEntryResource {
 		int id = MainApplication.imd.createEntry(me);
 		logger.info("Movie Entry Added \n" + me.toString());
 		
-		return new CreateEntryRepresentation(id);
+		return new MovieEntryRepresentation(id, me);
 	}
 }

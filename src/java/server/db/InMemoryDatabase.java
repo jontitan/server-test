@@ -45,6 +45,8 @@ public class InMemoryDatabase {
 	public HashSet<Integer> getIds() {
 		return ids;
 	}
-	
-	
+
+	public MovieEntry getEntry(int intId) {
+		return library.get(intId);
+	}
 }
