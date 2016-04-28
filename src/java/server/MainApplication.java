@@ -61,6 +61,7 @@ public class MainApplication extends Application<AppConfiguration>
 		environment.jersey().register(new TimeOfDayResource());
 		environment.jersey().register(new CreateEntryResource());
 		environment.jersey().register(new DeleteEntryResource());
+		environment.jersey().register(new UpdateEntryResource());
 		environment.jersey().register(new ListEntriesResource());
     }
 }

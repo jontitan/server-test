@@ -13,8 +13,7 @@ import server.db.MovieEntry;
 
 @Path("/api/movie/delete")
 @Produces(MediaType.APPLICATION_JSON)
-public class DeleteEntryResource {
-	private final static String WRONG_ID = "Invalid input for id";
+public class DeleteEntryResource extends MovieEntryResource {
 	
 	@DELETE
 	public MovieEntryRepresentation deleteEntry(@QueryParam("id") String id){	

@@ -16,13 +16,8 @@ import server.db.MovieEntry;
 
 @Path("/api/movie/create")
 @Produces(MediaType.APPLICATION_JSON)
-public class CreateEntryResource {
+public class CreateEntryResource extends MovieEntryResource {
 	final static Logger logger = LoggerFactory.getLogger(CreateEntryResource.class);
-	
-	private final static String WRONG_NAME = "Invalid input for name";
-	private final static String WRONG_GENRE = "Invalid input for genre";
-	private final static String WRONG_YEAR = "Invalid input for year";
-	private final static String WRONG_RATING = "Invalid input for rating";
 
 	@POST
 	public MovieEntryRepresentation createEntry(@QueryParam("name") String name,
@@ -53,7 +48,7 @@ public class CreateEntryResource {
 		
 		MovieEntry me = new MovieEntry(name, genre, intYear, doubleRating);
 		int id = MainApplication.imd.createEntry(me);
-		logger.info("Movie Entry Added \n" + me.toString());
+		logger.info("Movie Entry Added. id: " + id +  "\n" + me.toString());
 		
 		return new MovieEntryRepresentation(id, me);
 	}

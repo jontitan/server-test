@@ -49,4 +49,8 @@ public class InMemoryDatabase {
 	public MovieEntry getEntry(int intId) {
 		return library.get(intId);
 	}
+
+	public boolean containsKey(int key) {
+		return library.containsKey(key);
+	}
 }
