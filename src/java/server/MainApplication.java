@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import api.resource.TimeOfDayResource;
-import api.resource.createEntryResource;
+import api.resource.CreateEntryResource;
+import api.resource.ListEntriesResource;
 import server.config.AppConfiguration;
 import server.db.InMemoryDatabase;
 import server.healthcheck.AppHealthCheck;
@@ -18,7 +19,7 @@ import server.healthcheck.AppHealthCheck;
 public class MainApplication extends Application<AppConfiguration>
 {
 	final static Logger logger = LoggerFactory.getLogger(MainApplication.class);
-	public static InMemoryDatabase imd;
+	public volatile static InMemoryDatabase imd;
 
 
 	public static void main(String[] args) throws Exception
@@ -59,6 +60,7 @@ public class MainApplication extends Application<AppConfiguration>
 
         // register servlet route handlers
 		environment.jersey().register(new TimeOfDayResource());
-		environment.jersey().register(new createEntryResource(imd));
+		environment.jersey().register(new CreateEntryResource());
+		environment.jersey().register(new ListEntriesResource());
     }
 }

@@ -2,15 +2,15 @@ package api.representation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class createEntryRepresentation {
+public class CreateEntryRepresentation {
 	
 	private int id;
 	
-	public createEntryRepresentation(){
+	public CreateEntryRepresentation(){
 		// Jackson deserialization
 	}
 
-	public createEntryRepresentation(int id) {
+	public CreateEntryRepresentation(int id) {
 		this.id = id;
 	}
 	

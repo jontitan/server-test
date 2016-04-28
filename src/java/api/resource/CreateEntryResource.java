@@ -10,27 +10,22 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import api.representation.createEntryRepresentation;
-import server.db.InMemoryDatabase;
+import api.representation.CreateEntryRepresentation;
+import server.MainApplication;
 import server.db.MovieEntry;
 
 @Path("/api/movie/create")
 @Produces(MediaType.APPLICATION_JSON)
-public class createEntryResource {
-	private InMemoryDatabase imd;
-	final static Logger logger = LoggerFactory.getLogger(createEntryResource.class);
+public class CreateEntryResource {
+	final static Logger logger = LoggerFactory.getLogger(CreateEntryResource.class);
 	
 	private final static String WRONG_NAME = "Invalid input for name";
 	private final static String WRONG_GENRE = "Invalid input for genre";
 	private final static String WRONG_YEAR = "Invalid input for year";
 	private final static String WRONG_RATING = "Invalid input for rating";
 
-	public createEntryResource(InMemoryDatabase imd) {
-		this.imd = imd;
-	}
-
 	@POST
-	public createEntryRepresentation createEntry(@QueryParam("name") String name,
+	public CreateEntryRepresentation createEntry(@QueryParam("name") String name,
 												 @QueryParam("genre") String genre,
 												 @QueryParam("year") String year,
 												 @QueryParam("rating") String rating){
@@ -57,9 +52,9 @@ public class createEntryResource {
 		}
 		
 		MovieEntry me = new MovieEntry(name, genre, intYear, doubleRating);
-		int id = imd.createEntry(me);
+		int id = MainApplication.imd.createEntry(me);
 		logger.info("Movie Entry Added \n" + me.toString());
 		
-		return new createEntryRepresentation(id);
+		return new CreateEntryRepresentation(id);
 	}
 }

@@ -37,4 +37,14 @@ public class InMemoryDatabase {
 		} while(!ids.add(nextId));
 		return nextId;
 	}
+
+	public HashMap<Integer, MovieEntry> getLibrary() {
+		return library;
+	}
+
+	public HashSet<Integer> getIds() {
+		return ids;
+	}
+	
+	
 }
