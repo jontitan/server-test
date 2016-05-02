@@ -4,23 +4,25 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
+import api.representation.MovieEntryRepresentation;
+
 public class InMemoryDatabase {
 	
-	private HashMap<Integer, MovieEntry> library;
+	private HashMap<Integer, MovieEntryRepresentation> library;
 	private HashSet<Integer> ids;
 	
 	public InMemoryDatabase(){
-		library = new HashMap<Integer, MovieEntry>();
+		library = new HashMap<Integer, MovieEntryRepresentation>();
 		ids = new HashSet<Integer>();
 	}
 	
-	public int createEntry(MovieEntry me){
+	public int createEntry(MovieEntryRepresentation me){
 		int id = getNewId();
 		library.put(id, me);
 		return id;
 	}
 	
-	public void updateEntry(int id, MovieEntry me){
+	public void updateEntry(int id, MovieEntryRepresentation me){
 		library.put(id, me);
 	}
 	
@@ -38,7 +40,7 @@ public class InMemoryDatabase {
 		return nextId;
 	}
 
-	public HashMap<Integer, MovieEntry> getLibrary() {
+	public HashMap<Integer, MovieEntryRepresentation> getLibrary() {
 		return library;
 	}
 
@@ -46,7 +48,7 @@ public class InMemoryDatabase {
 		return ids;
 	}
 
-	public MovieEntry getEntry(int intId) {
+	public MovieEntryRepresentation getEntry(int intId) {
 		return library.get(intId);
 	}
 

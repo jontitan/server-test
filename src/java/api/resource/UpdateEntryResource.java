@@ -2,7 +2,7 @@ package api.resource;
 
 import java.util.HashSet;
 
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -13,16 +13,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import api.representation.MovieEntryRepresentation;
+import api.representation.MovieEntryResultRepresentation;
 import server.MainApplication;
-import server.db.MovieEntry;
 
 @Path("/api/movie/update")
 @Produces(MediaType.APPLICATION_JSON)
 public class UpdateEntryResource extends MovieEntryResource {
 	final static Logger logger = LoggerFactory.getLogger(UpdateEntryResource.class);
 
-	@PUT
-	public MovieEntryRepresentation updateEntry(@QueryParam("id") String id,
+	@POST
+	public MovieEntryResultRepresentation updateEntry(@QueryParam("id") String id,
 												@QueryParam("name") String name,
 												@QueryParam("genre") String genre,
 												@QueryParam("year") String year,
@@ -38,7 +38,7 @@ public class UpdateEntryResource extends MovieEntryResource {
 			throw new WebApplicationException(WRONG_ID, 400);
 		}
 		
-		MovieEntry me ;
+		MovieEntryRepresentation me ;
 		if(MainApplication.imd.containsKey(intId)){
 			me = MainApplication.imd.getEntry(intId);
 		} else {
@@ -98,6 +98,6 @@ public class UpdateEntryResource extends MovieEntryResource {
 		MainApplication.imd.updateEntry(intId, me);
 		logger.info("Movie Entry Updated. id: " + intId + "\n" + me.toString());
 		
-		return new MovieEntryRepresentation(intId, me);
+		return new MovieEntryResultRepresentation(intId, me);
 	}
 }

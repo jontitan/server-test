@@ -6,17 +6,16 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import server.db.InMemoryDatabase;
-import server.db.MovieEntry;
 
 public class ListEntriesRepresentation {
-	private List<MovieEntry> entries;
+	private List<MovieEntryRepresentation> entries;
 
 	public ListEntriesRepresentation(InMemoryDatabase imd) {
-		this.entries = new ArrayList<MovieEntry>(imd.getLibrary().values());
+		this.entries = new ArrayList<MovieEntryRepresentation>(imd.getLibrary().values());
 	}
 	
 	@JsonProperty
-	public List<MovieEntry> getEntries() {
+	public List<MovieEntryRepresentation> getEntries() {
 		return entries;
 	}
 }
