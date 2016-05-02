@@ -45,6 +45,17 @@ sourceSets {
     }
 }
 
+test {
+   include 'src/java/test/IntegrationTestSuite.class'
+   
+   // show standard out and standard error of the test JVM(s) on the console
+  	testLogging.showStandardStreams = true
+  	reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }         
+}
+
 jar {
     baseName = 'test-server'
     version =  '1.0.0'

@@ -9,6 +9,10 @@ import server.db.InMemoryDatabase;
 
 public class ListEntriesRepresentation {
 	private List<MovieEntryRepresentation> entries;
+	
+	public ListEntriesRepresentation(){
+		// Jackson deserialization
+	}
 
 	public ListEntriesRepresentation(InMemoryDatabase imd) {
 		this.entries = new ArrayList<MovieEntryRepresentation>(imd.getLibrary().values());

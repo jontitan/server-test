@@ -1,12 +1,9 @@
 package api.resource;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
@@ -22,7 +19,19 @@ import server.MainApplication;
 @Produces(MediaType.APPLICATION_JSON)
 public class CreateEntryResource extends MovieEntryResource {
 	final static Logger logger = LoggerFactory.getLogger(CreateEntryResource.class);
+	
+	@PUT
+	public MovieEntryResultRepresentation createEntry(MovieEntryRepresentation mer){
+		if(mer.getName() == null) {
+			throw new WebApplicationException(WRONG_NAME, 400);
+		}
+		
+		int id = MainApplication.imd.createEntry(mer);
+		logger.info("Movie Entry Added. id: " + id + "\n" + mer);
 
+		return new MovieEntryResultRepresentation(id, mer);
+	}
+	
 //	@PUT
 //	public MovieEntryResultRepresentation createEntry(@QueryParam("name") String name,
 //												 @QueryParam("genre") String genre,
@@ -56,12 +65,4 @@ public class CreateEntryResource extends MovieEntryResource {
 //		
 //		return new MovieEntryResultRepresentation(id, me);
 //	}
-	
-	@PUT
-	public MovieEntryResultRepresentation createEntry(MovieEntryRepresentation me){
-		int id = MainApplication.imd.createEntry(me);
-		logger.info("Movie Entry Added. id: " + me);
-
-		return new MovieEntryResultRepresentation(id, me);
-	}
 }

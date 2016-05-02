@@ -54,7 +54,7 @@ public class MainApplication extends Application<AppConfiguration>
 			throw new RuntimeException();
 		}
 
-		environment.healthChecks().register("app", new AppHealthCheck());
+		environment.healthChecks().register("DBConsistency", new DBConsistency());
 		environment.healthChecks().register("timeOfDay", new TimeOfDayHealthCheck());
 
         // register servlet route handlers
@@ -63,5 +63,7 @@ public class MainApplication extends Application<AppConfiguration>
 		environment.jersey().register(new DeleteEntryResource());
 		environment.jersey().register(new UpdateEntryResource());
 		environment.jersey().register(new ListEntriesResource());
+		environment.jersey().register(new SearchByIdResource());
+		environment.jersey().register(new ListIdsResource());
     }
 }

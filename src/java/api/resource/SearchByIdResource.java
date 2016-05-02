@@ -1,6 +1,6 @@
 package api.resource;
 
-import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -14,27 +14,29 @@ import api.representation.MovieEntryRepresentation;
 import api.representation.MovieEntryResultRepresentation;
 import server.MainApplication;
 
-@Path("/api/movie/delete")
+@Path("/api/movie/search")
 @Produces(MediaType.APPLICATION_JSON)
-public class DeleteEntryResource extends MovieEntryResource {
-	final static Logger logger = LoggerFactory.getLogger(DeleteEntryResource.class);
-	
-	@DELETE
-	public MovieEntryResultRepresentation deleteEntry(@QueryParam("id") String id){	
+public class SearchByIdResource extends MovieEntryResource {
+	final static Logger logger = LoggerFactory.getLogger(SearchByIdResource.class);
+
+	@GET
+	public MovieEntryResultRepresentation updateEntry(@QueryParam("id") String id){
 		int intId = 0;
+		
 		try{
 			intId = Integer.parseInt(id);
 		} catch (NumberFormatException nfe){
 			throw new WebApplicationException(WRONG_ID, 400);
 		}
 		
-		if(!MainApplication.imd.containsKey(intId)){
+		MovieEntryRepresentation mer ;
+		if(MainApplication.imd.containsKey(intId)){
+			mer = MainApplication.imd.getEntry(intId);
+		} else {
 			throw new WebApplicationException(WRONG_ID, 400);
 		}
 		
-		MovieEntryRepresentation mer = MainApplication.imd.getEntry(intId);
-		MainApplication.imd.deleteEntry(intId);
-		logger.info("Movie Entry Deleted id: " + intId + "\n" + mer);
+		logger.info("Movie Entry Searched. id: " + id + "\n" + mer);
 		return new MovieEntryResultRepresentation(intId, mer);
 	}
 }
