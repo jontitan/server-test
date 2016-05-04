@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/java"/>
-	<classpathentry kind="src" path="test/java"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/IBM_ADMIN/git/server-test/build/distributions/server-test/lib/aopalliance-repackaged-2.4.0-b31.jar"/>
 	<classpathentry kind="lib" path="C:/Users/IBM_ADMIN/git/server-test/build/distributions/server-test/lib/argparse4j-0.6.0.jar"/>
